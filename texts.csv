@@ -1,3 +1,12 @@
 "ID","ENG","ITA"
-"welcome","/* Welcome in Lithar II *\","/* Benvenuti in Lithar II *\"
+"welcome","_/* Welcome in Lithar II *\_","_/* Benvenuti in Lithar II *\_"
 "no_index","No index has been found in Lithar.","Non è stato trovato alcun indice in Lithar."
+"input_new_bak","Would you like to create a new backup?","Vuoi creare un nuovo backup?"
+,,
+,,
+,,
+,,
+,,
+"no_textfile","There is no text file in Lithar directory.
+Please add a “texts.csv” in Lithar directory.","Non è stato trovato alcun file di testo nella cartella di Lithar.
+È necessario aggiungere un file “texts.csv” nella cartella di Lithar."

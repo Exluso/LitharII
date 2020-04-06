@@ -1,6 +1,10 @@
 """This module generates all the texts to be used in Lithar II"""
 
-import csv
+import csv, sys
+
+def separe():
+    """ Prints a separator to divide different section of the text flow."""
+    print("\n" + 150 * "~" + "\n")
 
 def create_texts(language):
     """IN: language as string. A 3 Letters code for the language, e.g. ENG
@@ -8,12 +12,22 @@ def create_texts(language):
 
     file_name = "texts.csv"
     texts = {}
-    with open(file_name) as csv_file:
-        csv_reader = csv.DictReader(csv_file)
-        for row in csv_reader:
-            texts.update({row["ID"]: row[language]})
+    try:
+        with open(file_name) as csv_file:
+            csv_reader = csv.DictReader(csv_file)
+            for row in csv_reader:
+                texts.update({row["ID"]: row[language]})
 
-    return texts
+        return texts
+    except FileNotFoundError:
+        separe()
+        print("There is no text file in Lithar directory.\n"
+              "Please add a 'texts.csv' in Lithar directory, then launch "
+              "the program again."
+              )
+        separe()
+        sys.exit()
 
-# texts = create_texts("ITA")
-# print(texts["welcome"])
+if __name__ == "__main__":
+    texts = create_texts("ITA")
+    print(texts["welcome"])
