@@ -31,3 +31,4 @@ def create_texts(language):
 if __name__ == "__main__":
     texts = create_texts("ITA")
     print(texts["welcome"])
+    print(texts)
