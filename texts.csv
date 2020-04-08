@@ -1,17 +1,27 @@
-"ID","ENG","ITA"
-"welcome","_/* Welcome in Lithar II *\_","_/* Benvenuti in Lithar II *\_"
-"no_index","No index has been found in Lithar.","Non è stato trovato alcun indice in Lithar."
-"input_new_bak","Would you like to create a new backup?","Vuoi creare un nuovo backup?"
-"choose_option","Select an option by typing the related number.","Scegli un opzione inserendo il relativo numero."
-"error","ERROR: ","ERRORE: "
-"err_option_input","make sure to enter a number that correspond to an option.","inserisci un numero che corrisponde ad un’opzione."
-"enter_num","Enter the number: ","Digita il numero: "
-"change_lang","Change the language.","Cambia la lingua."
-"ins_lang","Type the new language: ","Inserisci la nuova lingua: "
-"err_lang_input","Language not available. Choose among: eng or ita","Lingua non disponibile. Scegli tra: eng o ita"
+ID,ENG,ITA
+welcome,_/* Welcome in Lithar II *\_,_/* Benvenuti in Lithar II *\_
+no_index,No index has been found in Lithar.,Non è stato trovato alcun indice in Lithar.
+input_new_bak,Would you like to create a new backup?,Vuoi creare un nuovo backup?
+choose_option,Select an option by typing the related number.,Scegli un opzione inserendo il relativo numero.
 ,,
-"placeholder","placeholder","placeholder"
 ,,
-"no_textfile","There is no text file in Lithar directory.
+enter_num,Enter a number: ,Digita un numero: 
+change_lang_desc,Change the language.,Cambia la lingua.
+ins_lang,Type the new language: ,Inserisci la nuova lingua: 
+err_lang_input,Language not available. Choose among: eng or ita,Lingua non disponibile. Scegli tra: eng o ita
+meta_comment,Should not read me,Should not read me
+placeholder,placeholder,placeholder
+,,
+,Error collection,
+error,ERROR: ,ERRORE: 
+err_option_input,make sure to enter a number that correspond to an option.,inserisci un numero che corrisponde ad un’opzione.
+err_lang_input,Language not available. Choose among: eng or ita,Lingua non disponibile. Scegli tra: eng o ita
+no_textfile,"There is no text file in Lithar directory.
 Please add a “texts.csv” in Lithar directory.","Non è stato trovato alcun file di testo nella cartella di Lithar.
 È necessario aggiungere un file “texts.csv” nella cartella di Lithar."
+no_idea,Can’t understand your command. Please try again.,Non capisco il tuo comando. Riprova.
+,,
+,quit_lithar function,
+quit_confirm,Are you sure you want to quit Lithar? (y/n): ,Sicuro di voler uscire da Lithar? (s/n): 
+byez,Goodbye!!!,A presto!!!
+quit_desc,Quit Lithar.,Esci da Lithar.

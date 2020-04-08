@@ -1,8 +1,10 @@
 """ A better Lithar.
 Because re-writing is better than refactoring."""
-
+import time
+import sys
+import opt_dictionaries as od
 from settings import Settings
-from wording import create_texts, separe
+from wording import create_texts, curtain
 
 
 class Lithar:
@@ -13,15 +15,25 @@ class Lithar:
         self.texts = create_texts(self.settings.language)
         # todo the text in the options does not change
         #  when changing the language. Fix it.
-        self.opt_chanlan = {"description": self.texts["change_lang"],
-                            "action": self.set_language}
-        self.main_options = [self.opt_chanlan]
+        # The following od. functions initialize more Lithar parameters
+        self.init_opt_dictionaries()
+        self.init_opt_lists()
+
+    def init_opt_dictionaries(self):
+        """ initialize the opt_dictionaries for Lithar."""
+        self.opt_chanlan = od.gen_opt_dict(self.texts["change_lang_desc"],
+                                        self.set_language)
+        self.opt_quit = od.gen_opt_dict(self.texts["quit_desc"],
+                                     self.quit_lithar)
+
+    def init_opt_lists(self):
+        """ initialize the lists of opt_dict to be used in lithar.option_frame()"""
+        self.main_options = [self.opt_chanlan, self.opt_quit]
 
     def main(self):
         """The main function that puts and keeps things in motion."""
-        separe()
+        curtain()
         print(self.texts["welcome"])
-        print()
         self.option_frame(self.main_options)
 
         # Todo check for a savefile, prints options.
@@ -29,8 +41,9 @@ class Lithar:
     def option_frame(self, opt_list):
         """prints a numbered list from which is possible to select options.
         IN: opt_list a list of dictionary representing the options."""
-        print(self.texts["choose_option"])
         while True:
+            print()
+            print(self.texts["choose_option"])
             for opt in opt_list:
                 print(f"{opt_list.index(opt)}".ljust(3),
                       f" - {opt['description']}")
@@ -47,18 +60,24 @@ class Lithar:
 
     def quit_lithar(self):
         """ quit the program."""
-        # todo this function
-        pass
-        
+        print()
+        answer = input(self.texts["quit_confirm"])
+        if answer in self.settings.positive_answer:
+            print(self.texts["byez"])
+            time.sleep(5)
+            sys.exit()
+        elif answer in self.settings.negative_answer:
+            pass
+        else:
+            print(self.texts["no_idea"])
+
     def set_language(self):
         """ Asks for the user input about the language and formats it for
         _change_language."""
         print()
         user_lang = input(self.texts["ins_lang"])
         lang = user_lang[:3].upper()
-
         self._change_language(lang)
-        print(self.texts["welcome"])
 
     def _change_language(self, lang):
         """ change the language settings
@@ -67,17 +86,26 @@ class Lithar:
         try:
             self.settings.language = lang
             self.texts = create_texts(self.settings.language)
+            self.init_opt_dictionaries()
+            self.init_opt_lists()
+            #self.opt_quit["description"] = self.texts["quit_desc"]
+            self.init_opt_dictionaries()
+            self.init_opt_lists()
+            print(self.opt_quit)
+            print(self.main_options[1])
+
         except KeyError:
             print(self.texts["error"] + self.texts["err_lang_input"])
-
 
     def test(self):
         print(self.settings.language)
         print(self.texts["welcome"])
-        self._change_language("tre")
 
 
 if __name__ == "__main__":
     lithar = Lithar()
     lithar.main()
     # lithar.test()
+else:
+    lithar = Lithar()
+    lithar.test()
