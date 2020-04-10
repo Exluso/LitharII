@@ -8,7 +8,7 @@ Keys:
 
 
 def gen_opt_dict(desc, func):
-    """ generates the opt_dict """
+    """ generates a single opt_dict """
     opt_dict = {"description": desc,
                 "action": func
                 }
@@ -21,8 +21,12 @@ def init_opt_dictionaries(lithar):
                                       lithar.set_language)
     lithar.opt_quit = gen_opt_dict(lithar.texts["quit_desc"],
                                    lithar.quit_lithar)
+    lithar.opt_newbak = gen_opt_dict(lithar.texts["new_bak_desc"],
+                                     lithar.new_bak)
 
 
 def init_opt_lists(lithar):
     """ initialize the lists of opt_dict to be used in lithar.option_frame()"""
-    lithar.main_options = [lithar.opt_chanlan, lithar.opt_quit]
+    lithar.main_options = [lithar.opt_chanlan,
+                           lithar.opt_quit,
+                           lithar.opt_newbak]

@@ -1,16 +1,12 @@
 ID,ENG,ITA
-welcome,_/* Welcome in Lithar II *\_,_/* Benvenuti in Lithar II *\_
-no_index,No index has been found in Lithar.,Non è stato trovato alcun indice in Lithar.
-input_new_bak,Would you like to create a new backup?,Vuoi creare un nuovo backup?
-choose_option,Select an option by typing the related number.,Scegli un opzione inserendo il relativo numero.
-,,
-,,
-enter_num,Enter a number: ,Digita un numero: 
-change_lang_desc,Change the language.,Cambia la lingua.
-ins_lang,Type the new language: ,Inserisci la nuova lingua: 
-err_lang_input,Language not available. Choose among: eng or ita,Lingua non disponibile. Scegli tra: eng o ita
 meta_comment,Should not read me,Should not read me
 placeholder,placeholder,placeholder
+,,
+welcome,_/* Welcome in Lithar II *\_,_/* Benvenuti in Lithar II *\_
+no_index,No index has been found in Lithar.,Non è stato trovato alcun indice in Lithar.
+,,
+choose_option,Select an option by typing the related number.,Scegli un opzione inserendo il relativo numero.
+enter_num,Enter a number: ,Digita un numero: 
 ,,
 ,Error collection,
 error,ERROR: ,ERRORE: 
@@ -20,8 +16,20 @@ no_textfile,"There is no text file in Lithar directory.
 Please add a “texts.csv” in Lithar directory.","Non è stato trovato alcun file di testo nella cartella di Lithar.
 È necessario aggiungere un file “texts.csv” nella cartella di Lithar."
 no_idea,Can’t understand your command. Please try again.,Non capisco il tuo comando. Riprova.
+err_lang_input,Language not available. Choose among: eng or ita,Lingua non disponibile. Scegli tra: eng o ita
 ,,
 ,quit_lithar function,
 quit_confirm,Are you sure you want to quit Lithar? (y/n): ,Sicuro di voler uscire da Lithar? (s/n): 
 byez,Goodbye!!!,A presto!!!
 quit_desc,Quit Lithar.,Esci da Lithar.
+,,
+,new_bak function,
+new_bak_desc,Create a new backup.,Crea un nuovo backup.
+new_bak_input_name,Insert the name of the new backup: ,Inserisci il nome del nuovo backup: 
+new_bak_input_note,Write a short note about the new backup: ,Scrivi una breve nota sul nuovo backup: 
+new_bak_input_source,Insert the path of the folder you want to back up: ,Inserisci il percorso della cartella di cui vuoi fare il backup: 
+new_bak_input_dest,Insert the path of the folder where you want to save the backup: ,Inserisci il percorso della cartella dove vuoi salvare il backup: 
+,,
+,change_lang function,
+change_lang_desc,Change the language.,Cambia la lingua.
+ins_lang,Type the new language: ,Inserisci la nuova lingua: 

@@ -3,6 +3,7 @@ Because re-writing is better than refactoring."""
 import time
 import sys
 import opt_dictionaries as od
+import lithar_backup as bak
 from settings import Settings
 from wording import create_texts, curtain
 
@@ -13,22 +14,14 @@ class Lithar:
     def __init__(self):
         self.settings = Settings(self)
         self.texts = create_texts(self.settings.language)
-        # todo the text in the options does not change
-        #  when changing the language. Fix it.
-        # The following od. functions initialize more Lithar parameters
-        self.init_opt_dictionaries()
-        self.init_opt_lists()
+        self._init_opt_dict_stuff()
+        self.bak_list = []  # contains the BakData objects available atm
 
-    def init_opt_dictionaries(self):
-        """ initialize the opt_dictionaries for Lithar."""
-        self.opt_chanlan = od.gen_opt_dict(self.texts["change_lang_desc"],
-                                           self.set_language)
-        self.opt_quit = od.gen_opt_dict(self.texts["quit_desc"],
-                                        self.quit_lithar)
-
-    def init_opt_lists(self):
-        """ initialize the lists of opt_dict to be used in lithar.option_frame()"""
-        self.main_options = [self.opt_chanlan, self.opt_quit]
+    def _init_opt_dict_stuff(self):
+        """ a helper method that initialize all the attributes related
+        to the opt_dictionaries."""
+        od.init_opt_dictionaries(self)
+        od.init_opt_lists(self)
 
     def main(self):
         """The main function that puts and keeps things in motion."""
@@ -86,11 +79,22 @@ class Lithar:
         try:
             self.settings.language = lang
             self.texts = create_texts(self.settings.language)
-            self.init_opt_dictionaries()
-            self.init_opt_lists()
+            self._init_opt_dict_stuff()
 
         except KeyError:
             print(self.texts["error"] + self.texts["err_lang_input"])
+
+    def new_bak(self):
+        """creates a new backup, adds it to the bak_list."""
+        name = input(self.texts["new_bak_input_name"])
+        notes = input(self.texts["new_bak_input_note"])
+        source = input(self.texts["new_bak_input_source"])
+        dest = input(self.texts["new_bak_input_dest"])
+
+        self.bak_list.append(bak.BakData(self, name, notes, source, dest))
+
+        print(self.bak_list[0].name)
+
 
     def test(self):
         print(self.settings.language)
