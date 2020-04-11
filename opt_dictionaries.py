@@ -1,10 +1,15 @@
-"""This module contains the opt_dictionaries used in Litar II.
+"""This module contains the opt_dictionaries used in Lithar II.
 a opt_dictionary is a dictionary used by Lithar to present options and choices
 to the user.
 Naming: opt_ + name of the function
 Keys:
     'description': a description for the final user.
-    'action': the function that will perform the action chosen by the user"""
+    'action': the function that will perform the action chosen by the user
+opt_dicts are also used to present the already available lithar_backups to
+the user, they use the same format but are referred as 'opt_bak'
+Namig: opt_bak + ???
+'description': comes from the lithar_backup.gen_description
+'action': it a method of the lithar.backup object """
 
 
 def gen_opt_dict(desc, func):
@@ -23,10 +28,13 @@ def init_opt_dictionaries(lithar):
                                    lithar.quit_lithar)
     lithar.opt_newbak = gen_opt_dict(lithar.texts["new_bak_desc"],
                                      lithar.new_bak)
+    lithar.opt_access_bak = gen_opt_dict(lithar.texts["access_bak_desc"],
+                                         lithar.option_frame_baklist)
 
 
 def init_opt_lists(lithar):
     """ initialize the lists of opt_dict to be used in lithar.option_frame()"""
     lithar.main_options = [lithar.opt_chanlan,
                            lithar.opt_quit,
-                           lithar.opt_newbak]
+                           lithar.opt_newbak,
+                           lithar.opt_access_bak]

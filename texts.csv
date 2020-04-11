@@ -17,6 +17,7 @@ Please add a “texts.csv” in Lithar directory.","Non è stato trovato alcun file d
 È necessario aggiungere un file “texts.csv” nella cartella di Lithar."
 no_idea,Can’t understand your command. Please try again.,Non capisco il tuo comando. Riprova.
 err_lang_input,Language not available. Choose among: eng or ita,Lingua non disponibile. Scegli tra: eng o ita
+err_no_save,No previous backup has been found.,Non è stato trovato alcun backup precedente.
 ,,
 ,quit_lithar function,
 quit_confirm,Are you sure you want to quit Lithar? (y/n): ,Sicuro di voler uscire da Lithar? (s/n): 
@@ -29,7 +30,17 @@ new_bak_input_name,Insert the name of the new backup: ,Inserisci il nome del nuo
 new_bak_input_note,Write a short note about the new backup: ,Scrivi una breve nota sul nuovo backup: 
 new_bak_input_source,Insert the path of the folder you want to back up: ,Inserisci il percorso della cartella di cui vuoi fare il backup: 
 new_bak_input_dest,Insert the path of the folder where you want to save the backup: ,Inserisci il percorso della cartella dove vuoi salvare il backup: 
+new_bak_created,The backup: %s has been created.,Il backup: %s è stato creato.
 ,,
 ,change_lang function,
 change_lang_desc,Change the language.,Cambia la lingua.
 ins_lang,Type the new language: ,Inserisci la nuova lingua: 
+,,
+,access_bak function,
+access_bak_desc,Access already existent backups.,Accedi a backup pre-esistenti.
+,,
+,option_frame_baklist function,
+opt_fr_baklist_index,#,#
+opt_fr_baklist_name,BACKUP NAME,BACKUP
+opt_fr_baklist_date,LAST UPDATE,ULTIMO AGGIORNAMENTO
+opt_fr_baklist_notes,NOTES,NOTE

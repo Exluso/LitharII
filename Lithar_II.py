@@ -2,6 +2,8 @@
 Because re-writing is better than refactoring."""
 import time
 import sys
+import os
+import shelve
 import opt_dictionaries as od
 import lithar_backup as bak
 from settings import Settings
@@ -15,13 +17,22 @@ class Lithar:
         self.settings = Settings(self)
         self.texts = create_texts(self.settings.language)
         self._init_opt_dict_stuff()
-        self.bak_list = []  # contains the BakData objects available atm
+        self.load_bak_list()
+        self.opt_bak_list = []
+        # a opt_dict list that contains the backup obj.
+        self._init_opt_bak_list()
 
     def _init_opt_dict_stuff(self):
         """ a helper method that initialize all the attributes related
         to the opt_dictionaries."""
         od.init_opt_dictionaries(self)
         od.init_opt_lists(self)
+
+    def _init_opt_bak_list(self):
+        """initialize the opt_dict list used to select a saved backup."""
+        for bak in self.bak_list:
+            self.opt_bak_list.append(od.gen_opt_dict(bak.gen_description(),
+                                                     curtain))
 
     def main(self):
         """The main function that puts and keeps things in motion."""
@@ -30,13 +41,13 @@ class Lithar:
         while True:
             self.option_frame(self.main_options)
 
-        # Todo check for a savefile, prints options.
-
-    def option_frame(self, opt_list):
+    def option_frame(self, opt_list, header =""):
         """prints a numbered list from which is possible to select options.
         IN: opt_list a list of dictionary representing the options."""
         print()
         print(self.texts["choose_option"])
+        print()
+        print(header)
         for opt in opt_list:
             print(f"{opt_list.index(opt)}".ljust(3),
                   f" - {opt['description']}")
@@ -50,6 +61,17 @@ class Lithar:
 
         except (ValueError, IndexError):
             print(self.texts["error"] + self.texts["err_option_input"])
+
+    def option_frame_baklist(self): # todo why ljust does not work properly?
+        """ wrapper function for displaying the bak_list option frame."""
+        headers = (self.texts["opt_fr_baklist_index"].ljust(3) + "  - "
+              + self.texts["opt_fr_baklist_name"].ljust(\
+            self.settings.space_name)
+              + self.texts["opt_fr_baklist_date"].ljust(\
+            self.settings.space_date)
+              + self.texts["opt_fr_baklist_notes"])
+
+        self.option_frame(self.opt_bak_list, headers)
 
     def quit_lithar(self):
         """ quit the program."""
@@ -92,13 +114,44 @@ class Lithar:
         dest = input(self.texts["new_bak_input_dest"])
 
         self.bak_list.append(bak.BakData(self, name, notes, source, dest))
+        self.save_bak_list()
+        # todo add the new bak features to the opt_bak_list
 
-        print(self.bak_list[0].name)
+        # todo a function that actually creates the backup folder :D
+        print()
+        print(self.texts["new_bak_created"] % self.bak_list[-1].name)
 
+    def save_bak_list(self):
+        """ creates or upaates a json file containing the bak_list."""
+        with shelve.open(self.settings.savefile) as savefile:
+            savefile["bak_list"] = self.bak_list
+
+    def load_bak_list(self):
+        """ load the bak_list with previously made bak_data. If the savefile
+        is not present it will inform the user."""
+        if self._has_savedata():
+            with shelve.open(self.settings.savefile) as savefile:
+                self.bak_list = savefile["bak_list"]
+        elif not self._has_savedata():
+            print(self.texts["err_no_save"])
+            self.bak_list = []
+
+    def _has_savedata(self):
+        """check is the shelve files are already present.
+        This works only in Windows."""
+        #  todo write it so it works also on MacOs using only .dir
+        has_data = False
+        if (os.path.isfile(self.settings.savefile + ".bak") and
+                os.path.isfile(self.settings.savefile + ".dat") and
+                os.path.isfile(self.settings.savefile + ".dir")):
+            has_data = True
+        return has_data
 
     def test(self):
         print(self.settings.language)
-        print(self.texts["welcome"])
+        print("bak_list: ", lithar.bak_list)
+        lithar.load_bak_list()
+        # print("list1 name:", lithar.bak_list[0].notes)
 
 
 if __name__ == "__main__":
@@ -108,3 +161,4 @@ if __name__ == "__main__":
 else:
     lithar = Lithar()
     lithar.test()
+    print(lithar._has_savedata())
