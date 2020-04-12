@@ -19,6 +19,12 @@ def gen_opt_dict(desc, func):
                 }
     return opt_dict
 
+def gen_bak_description(lithar, bak):
+    """generate a description of the lithar_backup object (bak)"""
+    desc = bak.name.ljust(lithar.settings.space_name) \
+           + bak.pretty_date().ljust(lithar.settings.space_date) \
+           + bak.notes
+    return desc
 
 def init_opt_dictionaries(lithar):
     """ initialize the opt_dictionaries for Lithar."""
@@ -38,3 +44,4 @@ def init_opt_lists(lithar):
                            lithar.opt_quit,
                            lithar.opt_newbak,
                            lithar.opt_access_bak]
+

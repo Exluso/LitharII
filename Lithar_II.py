@@ -18,7 +18,6 @@ class Lithar:
         self.texts = create_texts(self.settings.language)
         self._init_opt_dict_stuff()
         self.load_bak_list()
-        self.opt_bak_list = []
         # a opt_dict list that contains the backup obj.
         self._init_opt_bak_list()
 
@@ -30,9 +29,11 @@ class Lithar:
 
     def _init_opt_bak_list(self):
         """initialize the opt_dict list used to select a saved backup."""
+        self.opt_bak_list = []
         for bak in self.bak_list:
-            self.opt_bak_list.append(od.gen_opt_dict(bak.gen_description(),
-                                                     curtain))
+            self.opt_bak_list.append(
+                od.gen_opt_dict(od.gen_bak_description(self, bak), curtain)
+            )
 
     def main(self):
         """The main function that puts and keeps things in motion."""
@@ -41,7 +42,7 @@ class Lithar:
         while True:
             self.option_frame(self.main_options)
 
-    def option_frame(self, opt_list, header =""):
+    def option_frame(self, opt_list, header=""):
         """prints a numbered list from which is possible to select options.
         IN: opt_list a list of dictionary representing the options."""
         print()
@@ -62,16 +63,20 @@ class Lithar:
         except (ValueError, IndexError):
             print(self.texts["error"] + self.texts["err_option_input"])
 
-    def option_frame_baklist(self): # todo why ljust does not work properly?
-        """ wrapper function for displaying the bak_list option frame."""
-        headers = (self.texts["opt_fr_baklist_index"].ljust(3) + "  - "
-              + self.texts["opt_fr_baklist_name"].ljust(\
-            self.settings.space_name)
-              + self.texts["opt_fr_baklist_date"].ljust(\
-            self.settings.space_date)
-              + self.texts["opt_fr_baklist_notes"])
+    def option_frame_baklist(self):
+        """ wrapper function for displaying the bak_list option frame.
+        activates only if there are already bak in the bak_list."""
+        if len(self.bak_list) > 0:
+            headers = (self.texts["opt_fr_baklist_index"].ljust(3) + "  - "
+                  + self.texts["opt_fr_baklist_name"].ljust(\
+                self.settings.space_name)
+                  + self.texts["opt_fr_baklist_date"].ljust(\
+                self.settings.space_date)
+                  + self.texts["opt_fr_baklist_notes"])
 
-        self.option_frame(self.opt_bak_list, headers)
+            self.option_frame(self.opt_bak_list, headers)
+        elif len(self.bak_list) <= 0:
+            print("\n" + self.texts["err_no_save"])
 
     def quit_lithar(self):
         """ quit the program."""
@@ -79,7 +84,7 @@ class Lithar:
         answer = input(self.texts["quit_confirm"])
         if answer in self.settings.positive_answer:
             print(self.texts["byez"])
-            time.sleep(5)
+            time.sleep(2)
             sys.exit()
         elif answer in self.settings.negative_answer:
             pass
@@ -109,14 +114,15 @@ class Lithar:
     def new_bak(self):
         """creates a new backup, adds it to the bak_list."""
         name = input(self.texts["new_bak_input_name"])
+        # todo check if the name attribute is already used by another
+        #  bak object in opt_bak_list
         notes = input(self.texts["new_bak_input_note"])
         source = input(self.texts["new_bak_input_source"])
         dest = input(self.texts["new_bak_input_dest"])
 
-        self.bak_list.append(bak.BakData(self, name, notes, source, dest))
+        self.bak_list.append(bak.BakData(name, notes, source, dest))
         self.save_bak_list()
-        # todo add the new bak features to the opt_bak_list
-
+        self._init_opt_bak_list()
         # todo a function that actually creates the backup folder :D
         print()
         print(self.texts["new_bak_created"] % self.bak_list[-1].name)
@@ -151,7 +157,6 @@ class Lithar:
         print(self.settings.language)
         print("bak_list: ", lithar.bak_list)
         lithar.load_bak_list()
-        # print("list1 name:", lithar.bak_list[0].notes)
 
 
 if __name__ == "__main__":
@@ -161,4 +166,3 @@ if __name__ == "__main__":
 else:
     lithar = Lithar()
     lithar.test()
-    print(lithar._has_savedata())
