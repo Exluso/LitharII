@@ -18,6 +18,9 @@ Please add a “texts.csv” in Lithar directory.","Non è stato trovato alcun file d
 no_idea,Can’t understand your command. Please try again.,Non capisco il tuo comando. Riprova.
 err_lang_input,Language not available. Choose among: eng or ita,Lingua non disponibile. Scegli tra: eng o ita
 err_no_save,No previous backup has been found.,Non è stato trovato alcun backup precedente.
+err_name_check,"A backup with this name already exists.
+Choose a different one.","Esiste già un backup con questo nome.
+Scegline un’altro."
 ,,
 ,quit_lithar function,
 quit_confirm,Are you sure you want to quit Lithar? (y/n): ,Sicuro di voler uscire da Lithar? (s/n): 
@@ -37,10 +40,20 @@ change_lang_desc,Change the language.,Cambia la lingua.
 ins_lang,Type the new language: ,Inserisci la nuova lingua: 
 ,,
 ,access_bak function,
-access_bak_desc,Access already existent backups.,Accedi a backup pre-esistenti.
+access_bak_desc,Access the index of already existent backups.,Accedi all’indice dei backup pre-esistenti.
+access_bak_header,BACKUP: %s,BACKUP: %s
+,,
 ,,
 ,option_frame_baklist function,
 opt_fr_baklist_index,#,#
 opt_fr_baklist_name,BACKUP NAME,BACKUP
 opt_fr_baklist_date,LAST UPDATE,ULTIMO AGGIORNAMENTO
 opt_fr_baklist_notes,NOTES,NOTE
+,,
+,option_frame_bak_details function,
+,,
+,del_bak function,
+del_bak_desc,Remove this backup from the index.,Elimina questo bacup dall’indice.
+del_bak_note,"NOTE: this operation won’t delete the actual backup folder.
+Only its record in Lithar will be removed.","NOTA: questa operazione non cancellera la cartella di backup vera e propria.
+Solo la sua indicizzazione in Lithar verrà rimossa."
