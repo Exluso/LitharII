@@ -26,11 +26,12 @@ class Lithar:
         self.load_bak_list()
         # a opt_dict list that contains the backup obj.
         self._init_opt_bak_list()
+        self.target = None
 
     def _init_opt_dict_stuff(self):
         """ a helper method that initialize all the attributes related
         to the opt_dictionaries."""
-        od.init_opt_dictionaries(self)
+        od.init_opt_dictionaries(self)  # a list of all
         od.init_opt_lists(self)
 
     def _init_opt_bak_list(self):
@@ -48,6 +49,8 @@ class Lithar:
         print(self.texts["welcome"])
         while True:
             self.status = "main"
+            self.target = None
+            self._init_opt_bak_list()
             self.option_frame(self.main_options)
 
     def option_frame(self, opt_list, header=""):
@@ -94,12 +97,10 @@ class Lithar:
 
     def option_frame_access_bak(self, bak_index):
         """The option frame that prompts actions related to a specific bak."""
-        target = self.bak_list[bak_index]
+        self.target = self.bak_list[bak_index]
         self.status = 'main'
-        header = self.texts["access_bak_header"] % target.name
-        # todo option frame for this function with bak_details, bak_update,
-        #  del_bak...
-        self.option_frame([], header)
+        header = self.texts["access_bak_header"] % self.target.name
+        self.option_frame(self.opt_bak_op_list, header)
 
     def quit_lithar(self):
         """ quit the program."""
@@ -161,11 +162,45 @@ class Lithar:
             else:
                 return False
 
-    def del_bak(self, bak):
+    def bak_details(self):
+        """ shows the details of the selected backup. Details are such:
+        sourcepath, destination path, notes, last update time."""
+        curtain()
+        print(self.texts["bak_det_title"])
+        print(f'{self.texts["bak_det_name"]}'.ljust(self.settings.space_note) +
+              f'{self.target.name}')
+        print(f'{self.texts["bak_det_last_update"]}'.ljust(
+            self.settings.space_note) + f'{self.target.mod_date}')
+        print(f'{self.texts["bak_det_dest"]}'.ljust(self.settings.space_note) +
+              f'{self.target.dest}')
+        print(f'{self.texts["bak_det_source"]}'.ljust(
+            self.settings.space_note) + f'{self.target.source}')
+
+    def update_bak(self):
+        """Finally this function updates the file in the backup folder."""
+        # todo a function that replaces outdated files with more recent ones.
+        # todo a function that removes files and folder from back if the same
+        #  files and folders are not in the source anymore
+        # todo a function that adds files in the backup if they are in the
+        #  source and not in the backup
+        print("I UPDATED THE BACKUP LOL, NO I AM DEBUG")
+
+    def del_bak(self):
         """ Removes a bak from the bak_list and hence from the savefile.
         NOTE: this does not deletes the actual backup folder, only the index in
         Lithar."""
         # todo this function. Don't forget to add a opt_dic in the opt_dict_list
+        curtain()
+        print(self.texts["del_bak_note"] + "\n")
+        confirm = input((self.texts["del_bak_confirm"] % self.target.name))
+        if confirm in self.settings.positive_answer:
+            self.bak_list.remove(self.target)
+            self.save_bak_list()
+            print(self.texts["del_bak_done"] % self.target.name)
+        elif confirm in self.settings.negative_answer:
+            pass
+        else:
+            print(self.texts["noidea"])
 
     def save_bak_list(self):
         """ creates or upaates a json file containing the bak_list."""

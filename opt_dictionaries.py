@@ -33,19 +33,30 @@ def init_opt_dictionaries(lithar):
     """ initialize the opt_dictionaries for Lithar."""
     lithar.opt_access_bak = gen_opt_dict(lithar.texts["access_bak_desc"],
                                          lithar.option_frame_baklist)
+    lithar.opt_bak_details = gen_opt_dict(lithar.texts["bak_det_desc"],
+                                          lithar.bak_details)
     lithar.opt_chanlan = gen_opt_dict(lithar.texts["change_lang_desc"],
                                       lithar.set_language)
+    lithar.opt_del_bak = gen_opt_dict(lithar.texts["del_bak_desc"],
+                                      lithar.del_bak)
     lithar.opt_newbak = gen_opt_dict(lithar.texts["new_bak_desc"],
                                      lithar.new_bak)
     lithar.opt_quit = gen_opt_dict(lithar.texts["quit_desc"],
                                    lithar.quit_lithar)
+    lithar.opt_update_bak = gen_opt_dict(lithar.texts["update_bak_desc"],
+                                         lithar.update_bak)
+
 
 
 def init_opt_lists(lithar):
     """ initialize the lists of opt_dict to be used in lithar.option_frame()"""
+    # main frame options
     lithar.main_options = [lithar.opt_chanlan,
                            lithar.opt_quit,
                            lithar.opt_newbak,
                            lithar.opt_access_bak]
-
-    # todo access_bak_options
+    # list of operations to be performed on a selected bak
+    lithar.opt_bak_op_list = [lithar.opt_bak_details,
+                              lithar.opt_update_bak,
+                              lithar.opt_del_bak]
+    # todo access_bak_options finish the above list
