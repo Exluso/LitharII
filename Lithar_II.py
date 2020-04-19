@@ -7,7 +7,7 @@ Keep in mind the following status for Lithar II:
 to pass an argument when using the opt_list[choice]["action"]() """
 import time
 import sys
-import os
+import os, shutil
 import shelve
 import opt_dictionaries as od
 import lithar_backup as lb
@@ -148,7 +148,10 @@ class Lithar:
         self.bak_list.append(lb.BakData(new_name, notes, source, dest))
         self.save_bak_list()
         self._init_opt_bak_list()
-        # todo a function that actually creates the backup folder :D
+        # The line that actually copies folders and files!
+        shutil.copytree("\\\\?\\" + source,
+                        os.path.join("\\\\?\\" + dest, os.path.basename(source)
+                                     + "_bak"))
         print()
         print(self.texts["new_bak_created"] % self.bak_list[-1].name)
 
@@ -189,7 +192,6 @@ class Lithar:
         """ Removes a bak from the bak_list and hence from the savefile.
         NOTE: this does not deletes the actual backup folder, only the index in
         Lithar."""
-        # todo this function. Don't forget to add a opt_dic in the opt_dict_list
         curtain()
         print(self.texts["del_bak_note"] + "\n")
         confirm = input((self.texts["del_bak_confirm"] % self.target.name))

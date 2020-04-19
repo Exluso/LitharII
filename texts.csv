@@ -35,6 +35,8 @@ new_bak_input_source,Insert the path of the folder you want to back up: ,Inseris
 new_bak_input_dest,Insert the path of the folder where you want to save the backup: ,Inserisci il percorso della cartella dove vuoi salvare il backup: 
 new_bak_created,The backup: %s has been created.,Il backup: %s è stato creato.
 ,,
+,,
+,,
 ,change_lang function,
 change_lang_desc,Change the language.,Cambia la lingua.
 ins_lang,Type the new language: ,Inserisci la nuova lingua: 
