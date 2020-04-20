@@ -7,7 +7,8 @@ Keep in mind the following status for Lithar II:
 to pass an argument when using the opt_list[choice]["action"]() """
 import time
 import sys
-import os, shutil
+import os
+import shutil
 import shelve
 import opt_dictionaries as od
 import lithar_backup as lb
