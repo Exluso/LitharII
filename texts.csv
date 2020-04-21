@@ -62,9 +62,6 @@ Solo la sua indicizzazione in Lithar verrà rimossa."
 del_bak_confirm,Are you really sure that you want to remove %s from the index of Lithar? (y/n) ,Siete proprio sicuri di voler rimuovere %s dall’indice di Lithar? (s/n) 
 del_bak_done,Backup %s has been removed from Lithar’s index.,Il backup: %s è stato rimosso dall’indice di Lithar.
 ,,
-,update_bak function,
-update_bak_desc,Updates the backup with the most recent changes.,Aggiorna il backup con i cambiamenti più recenti.
-,,
 ,bak_detail function,
 bak_det_desc,Shows details about the backup.,Mostra i dettagli del backup.
 bak_det_name,BACKUP NAME: ,NOME DEL BACKUP: 
@@ -72,3 +69,10 @@ bak_det_last_update,LAST UPDATE: ,ULTIMO AGGIORNAMENTO:
 bak_det_source,ORIGINAL: ,ORIGINALE: 
 bak_det_dest,BACKUP LOCATION: ,POSIZIONE DEL BACKUP:
 bak_det_title,*DETAILS*,*DETTAGLI*
+,,
+,update_bak function,
+update_bak_desc,Updates the backup with the most recent changes.,Aggiorna il backup con i cambiamenti più recenti.
+update_bak_added_file,New files added in %s:,Nuovi file aggiunti in %s:
+update_bak_added_dir,The following sub folders (and their content) have been added:,Sotto cartelle (con relativi contenuti) aggiunte:
+update_bak_remd_file,Files removed from %s:,File rimossi da %s:
+update_bak_remd_dir,The following sub folders (and their content) have been removed:,Sotto cartelle (con relativi contenuti) rimosse:
