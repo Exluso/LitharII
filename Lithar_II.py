@@ -12,6 +12,7 @@ import shutil
 import shelve
 import opt_dictionaries as od
 import lithar_backup as lb
+import update_bak_func as update_module
 from settings import Settings
 from wording import create_texts, curtain
 
@@ -57,6 +58,7 @@ class Lithar:
     def option_frame(self, opt_list, header=""):
         """prints a numbered list from which is possible to select options.
         IN: opt_list a list of dictionary representing the options."""
+        curtain()
         print()
         print(self.texts["choose_option"])
         print()
@@ -153,6 +155,10 @@ class Lithar:
         shutil.copytree("\\\\?\\" + source,
                         os.path.join("\\\\?\\" + dest, os.path.basename(source)
                                      + "_bak"))
+        self.bak_list[-1].dest = os.path.join(dest,
+                                              os.path.basename(source + "_bak"))
+        #TODO non salva?
+        self.save_bak_list()
         print()
         print(self.texts["new_bak_created"] % self.bak_list[-1].name)
 
@@ -181,13 +187,7 @@ class Lithar:
             self.settings.space_note) + f'{self.target.source}')
 
     def update_bak(self):
-        """Finally this function updates the file in the backup folder."""
-        # todo a function that replaces outdated files with more recent ones.
-        # todo a function that removes files and folder from back if the same
-        #  files and folders are not in the source anymore
-        # todo a function that adds files in the backup if they are in the
-        #  source and not in the backup
-        print("I UPDATED THE BACKUP LOL, NO I AM DEBUG")
+        update_module.update_bak(self, self.target)
 
     def del_bak(self):
         """ Removes a bak from the bak_list and hence from the savefile.

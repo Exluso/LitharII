@@ -76,3 +76,5 @@ update_bak_added_file,New files added in %s:,Nuovi file aggiunti in %s:
 update_bak_added_dir,The following sub folders (and their content) have been added:,Sotto cartelle (con relativi contenuti) aggiunte:
 update_bak_remd_file,Files removed from %s:,File rimossi da %s:
 update_bak_remd_dir,The following sub folders (and their content) have been removed:,Sotto cartelle (con relativi contenuti) rimosse:
+update_bak_updated_file,Files that have been updated in %s:,File aggiornati in %s:
+update_bak_no_update,The backup is already up to date. No actions taken.,Il Backup è già aggiornato. Non è stata compiuta alcuna modifica.
