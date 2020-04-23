@@ -21,6 +21,16 @@ err_no_save,No previous backup has been found.,Non è stato trovato alcun backup 
 err_name_check,"A backup with this name already exists.
 Choose a different one.","Esiste già un backup con questo nome.
 Scegline un’altro."
+err_path_check,"The destination path should not be a sub directory of the source path.
+Start again and don’t choose the same path.","Il perscorso di destinazione non può essere una subdirectory del percorso dell’originale.
+Inserisci due percorsi differenti."
+err_no_path,This path does not exist. Insert a valid path.,Questo percorso non esiste. Inserire un percorso valido.
+err_path_is_hd,"Something’s wrong with the entered path.
+If you are trying to enter the root of a HD, plase enter a %s in the end.","Qualcosa non va nel path inserito. 
+Se stai provando ad inserire un HD, aggiungi una %s alla fine."
+err_bak_already_exist,"There is already a backup in the destination path.
+Check the destinatio folder before trying again.","Esiste già un backup nella cartella di destinazione.
+Controlla la cartella di destinazione prima di riprovare."
 ,,
 ,quit_lithar function,
 quit_confirm,Are you sure you want to quit Lithar? (y/n): ,Sicuro di voler uscire da Lithar? (s/n): 
@@ -78,3 +88,6 @@ update_bak_remd_file,Files removed from %s:,File rimossi da %s:
 update_bak_remd_dir,The following sub folders (and their content) have been removed:,Sotto cartelle (con relativi contenuti) rimosse:
 update_bak_updated_file,Files that have been updated in %s:,File aggiornati in %s:
 update_bak_no_update,The backup is already up to date. No actions taken.,Il Backup è già aggiornato. Non è stata compiuta alcuna modifica.
+,,
+,go_back func,
+go_back_desc,Go back.,Torna indietro.

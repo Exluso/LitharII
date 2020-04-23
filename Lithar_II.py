@@ -145,19 +145,37 @@ class Lithar:
             new_name = input(self.texts["new_bak_input_name"])
             name_flag = self._name_check(new_name)
         notes = input(self.texts["new_bak_input_note"])
-        source = input(self.texts["new_bak_input_source"])
-        dest = input(self.texts["new_bak_input_dest"])
+
+        path_flag = True
+        while path_flag:
+            path_exist = False
+            while not path_exist:
+                source = input(self.texts["new_bak_input_source"])
+                path_exist = self._path_check(source)
+            path_exist = False
+            while not path_exist:
+                dest = input(self.texts["new_bak_input_dest"])
+                path_exist = self._path_check(dest)
+
+            if source in dest:
+                print(self.texts["err_path_check"])
+            elif source not in dest:
+                path_flag = False
 
         self.bak_list.append(lb.BakData(new_name, notes, source, dest))
         self.save_bak_list()
         self._init_opt_bak_list()
-        # The line that actually copies folders and files!
-        shutil.copytree("\\\\?\\" + source,
-                        os.path.join("\\\\?\\" + dest, os.path.basename(source)
-                                     + "_bak"))
+        try:
+            # The line that actually copies folders and files!
+            shutil.copytree("\\\\?\\" + source,
+                            os.path.join("\\\\?\\" + dest, os.path.basename(source)
+                                         + "_bak"))
+        except FileExistsError:
+            print(self.texts["err_bak_already_exist"])
+            time.sleep(5)
+
         self.bak_list[-1].dest = os.path.join(dest,
                                               os.path.basename(source + "_bak"))
-        #TODO non salva?
         self.save_bak_list()
         print()
         print(self.texts["new_bak_created"] % self.bak_list[-1].name)
@@ -171,6 +189,17 @@ class Lithar:
                 return True
             else:
                 return False
+
+    def _path_check(self, path):
+        """Checks if a path really exists."""
+        if path[-1] == ":":
+            print(self.texts["err_path_is_hd"] % os.sep)
+            return False
+        if not os.path.exists(path):
+            print(self.texts["err_no_path"])
+            return False
+        else:
+            return True
 
     def bak_details(self):
         """ shows the details of the selected backup. Details are such:
