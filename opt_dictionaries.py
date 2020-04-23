@@ -39,6 +39,8 @@ def init_opt_dictionaries(lithar):
                                       lithar.set_language)
     lithar.opt_del_bak = gen_opt_dict(lithar.texts["del_bak_desc"],
                                       lithar.del_bak)
+    lithar.opt_go_back = gen_opt_dict(lithar.texts["go_back_desc"],
+                                      lithar.go_back)
     lithar.opt_newbak = gen_opt_dict(lithar.texts["new_bak_desc"],
                                      lithar.new_bak)
     lithar.opt_quit = gen_opt_dict(lithar.texts["quit_desc"],
@@ -58,5 +60,5 @@ def init_opt_lists(lithar):
     # list of operations to be performed on a selected bak
     lithar.opt_bak_op_list = [lithar.opt_bak_details,
                               lithar.opt_update_bak,
-                              lithar.opt_del_bak]
-    # todo access_bak_options finish the above list
+                              lithar.opt_del_bak,
+                              lithar.opt_go_back]

@@ -44,6 +44,7 @@ class Lithar:
                 od.gen_opt_dict(od.gen_bak_description(self, bak),
                                 self.option_frame_access_bak)
             )
+        self.opt_bak_list.append(self.opt_go_back)
 
     def main(self):
         """The main function that puts and keeps things in motion."""
@@ -104,6 +105,10 @@ class Lithar:
         self.status = 'main'
         header = self.texts["access_bak_header"] % self.target.name
         self.option_frame(self.opt_bak_op_list, header)
+
+    def go_back(self, arg=None):
+        """Fake function used to go back in the menu."""
+        pass
 
     def quit_lithar(self):
         """ quit the program."""
@@ -170,15 +175,14 @@ class Lithar:
             shutil.copytree("\\\\?\\" + source,
                             os.path.join("\\\\?\\" + dest, os.path.basename(source)
                                          + "_bak"))
+            self.bak_list[-1].dest = os.path.join(dest,
+                                                  os.path.basename(source + "_bak"))
+            self.save_bak_list()
+            print()
+            print(self.texts["new_bak_created"] % self.bak_list[-1].name)
         except FileExistsError:
             print(self.texts["err_bak_already_exist"])
             time.sleep(5)
-
-        self.bak_list[-1].dest = os.path.join(dest,
-                                              os.path.basename(source + "_bak"))
-        self.save_bak_list()
-        print()
-        print(self.texts["new_bak_created"] % self.bak_list[-1].name)
 
     def _name_check(self, name):
         """ checks if the new bak is going to have a name already used for

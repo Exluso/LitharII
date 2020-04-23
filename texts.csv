@@ -29,7 +29,7 @@ err_path_is_hd,"Something’s wrong with the entered path.
 If you are trying to enter the root of a HD, plase enter a %s in the end.","Qualcosa non va nel path inserito. 
 Se stai provando ad inserire un HD, aggiungi una %s alla fine."
 err_bak_already_exist,"There is already a backup in the destination path.
-Check the destinatio folder before trying again.","Esiste già un backup nella cartella di destinazione.
+Check the destination folder before trying again.","Esiste già un backup nella cartella di destinazione.
 Controlla la cartella di destinazione prima di riprovare."
 ,,
 ,quit_lithar function,
