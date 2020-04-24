@@ -5,6 +5,8 @@ Keep in mind the following status for Lithar II:
 'main'  = the initial and default status, leads to the 'main_options' opt_list
 'index' = the status is activated when the bak index is displayed, this allows
 to pass an argument when using the opt_list[choice]["action"]() """
+#! python3
+
 import time
 import sys
 import os
@@ -162,7 +164,7 @@ class Lithar:
                 dest = input(self.texts["new_bak_input_dest"])
                 path_exist = self._path_check(dest)
 
-            if source in dest:
+            if self._clean_path(source) in dest:
                 print(self.texts["err_path_check"])
             elif source not in dest:
                 path_flag = False
@@ -173,10 +175,11 @@ class Lithar:
         try:
             # The line that actually copies folders and files!
             shutil.copytree("\\\\?\\" + source,
-                            os.path.join("\\\\?\\" + dest, os.path.basename(source)
-                                         + "_bak"))
+                            os.path.join("\\\\?\\" + dest,
+                                         os.path.basename(source) + "_bak"))
             self.bak_list[-1].dest = os.path.join(dest,
-                                                  os.path.basename(source + "_bak"))
+                                                  os.path.basename(source
+                                                                   + "_bak"))
             self.save_bak_list()
             print()
             print(self.texts["new_bak_created"] % self.bak_list[-1].name)
@@ -204,6 +207,13 @@ class Lithar:
             return False
         else:
             return True
+
+    def _clean_path(self, line):
+        """ removes the linebreak at the end of a string line (if present)"""
+        if line.endswith("\\"):
+            return line[:-1]
+        else:
+            return line
 
     def bak_details(self):
         """ shows the details of the selected backup. Details are such:

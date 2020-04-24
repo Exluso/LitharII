@@ -77,8 +77,8 @@ def update_bak(lithar, bak):
 
     source = bak.source
     dest = bak.dest
-    #print("source:", source)
-    #print("dest:", dest)
+    # print("source:", source) # For debug
+    # print("dest:", dest) # for debug
 
     files_added = {"text": lithar.texts["update_bak_added_file"]}
     files_updated = {"text": lithar.texts["update_bak_updated_file"]}
@@ -90,8 +90,8 @@ def update_bak(lithar, bak):
         mirror_dir = os.path.join(dest,
                                   "" if active_dir == source
                                   else os.path.relpath(active_dir, source))
-        #print("active:", active_dir)
-        #print("mirror:", mirror_dir)
+        # print("active:", active_dir) # for debug
+        # print("mirror:", mirror_dir) # for debug
         mirror_filenames = [mf for mf in os.listdir(mirror_dir)
                             if os.path.isfile(os.path.join(mirror_dir, mf))]
         mirror_subfolders = [msf for msf in os.listdir(mirror_dir)
