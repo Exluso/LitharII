@@ -3,8 +3,7 @@ import os
 import send2trash
 
 
-# TODO Updates the upper folder instead of the proper one!!!
-# TODO Don't tst on your desktop you idiot :D
+# TODO Check that the path saved in the bak object are still valid!!!
 
 def update_bak(lithar, bak):
     """Finally this function updates the file in the backup folder.

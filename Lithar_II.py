@@ -68,7 +68,7 @@ class Lithar:
         if header:
             print(header)
         for opt in opt_list:
-            print(f"{opt_list.index(opt)}".ljust(3),
+            print(f"{opt_list.index(opt)}".ljust(2),
                   f" - {opt['description']}")
 
         try:
@@ -230,6 +230,7 @@ class Lithar:
             self.settings.space_note) + f'{self.target.source}')
 
     def update_bak(self):
+        # TODO IMPORTANT!!! verify that the saved paths are still valid!!!
         update_module.update_bak(self, self.target)
 
     def del_bak(self):
@@ -279,11 +280,13 @@ class Lithar:
         print("bak_list: ", lithar.bak_list)
         lithar.load_bak_list()
 
-
-if __name__ == "__main__":
-    lithar = Lithar()
-    lithar.main()
-    # lithar.test()
-else:
-    lithar = Lithar()
-    lithar.test()
+try:
+    if __name__ == "__main__":
+        lithar = Lithar()
+        lithar.main()
+        # lithar.test()
+    else:
+        lithar = Lithar()
+        lithar.main()
+except:
+    input("Press Enter to continue.")
