@@ -31,7 +31,13 @@ Se stai provando ad inserire un HD, aggiungi una %s alla fine."
 err_bak_already_exist,"There is already a backup in the destination path.
 Check the destination folder before trying again.","Esiste già un backup nella cartella di destinazione.
 Controlla la cartella di destinazione prima di riprovare."
-,,
+err_source_path_changed,"Something’s wrong. The path of the original folder has changed, Lithar can’t find the source folder.",Qualcosa non va. Il percorso della cartella originale è cambiato e Lithar non trova più l’oggetto del backup.
+err_dest_path_changed,"Something’s wrong. The path of the backup folder has changed, Lithar can’t find the backup folder.",Qualcosa non va. Il percorso della cartella del backup è cambiato e Lithar non trova più il backup da aggiornare.
+err_path_changed,"Check the paths related to this backup in Lithar and the actual paths of your files and backup.
+NOTE: Usually it is possible to fix this by reverting the path to the previous states in the OS,
+or creating a new backup in Lithar with the new correct paths.","Controlla i percorsi associati a questo backup in Lithar e confrontali con quelli delle folder nel sistema operativo.
+NOTA: di solito è possibile risolvere questo problema ripristinando i nomi nei percorsi iniziali per combaciare con quelli di Lithar
+o creando un nuovo backup."
 ,quit_lithar function,
 quit_confirm,Are you sure you want to quit Lithar? (y/n): ,Sicuro di voler uscire da Lithar? (s/n): 
 byez,Goodbye!!!,A presto!!!

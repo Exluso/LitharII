@@ -230,7 +230,6 @@ class Lithar:
             self.settings.space_note) + f'{self.target.source}')
 
     def update_bak(self):
-        # TODO IMPORTANT!!! verify that the saved paths are still valid!!!
         update_module.update_bak(self, self.target)
 
     def del_bak(self):
@@ -280,6 +279,7 @@ class Lithar:
         print("bak_list: ", lithar.bak_list)
         lithar.load_bak_list()
 
+
 try:
     if __name__ == "__main__":
         lithar = Lithar()
@@ -288,5 +288,6 @@ try:
     else:
         lithar = Lithar()
         lithar.main()
-except:
+except:  # This except is exactly to catch anything in the cmd prompt and give
+    # the user the chance to read it before entering the input.
     input("Press Enter to continue.")

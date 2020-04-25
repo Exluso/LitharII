@@ -3,8 +3,6 @@ import os
 import send2trash
 
 
-# TODO Check that the path saved in the bak object are still valid!!!
-
 def update_bak(lithar, bak):
     """Finally this function updates the file in the backup folder.
     Works in 3 phases:
@@ -74,67 +72,73 @@ def update_bak(lithar, bak):
                         if k != "text":
                             print("\t" + file_changed)
 
-    source = bak.source
-    dest = bak.dest
-    # print("source:", source) # For debug
-    # print("dest:", dest) # for debug
+    if os.path.exists(bak.source) and os.path.exists(bak.dest):
+        source = "\\\\?\\" + bak.source  # \\\\?\\ is to include long path name
+        dest = "\\\\?\\" + bak.dest
+        # print("source:", source) # For debug
+        # print("dest:", dest) # for debug
 
-    files_added = {"text": lithar.texts["update_bak_added_file"]}
-    files_updated = {"text": lithar.texts["update_bak_updated_file"]}
-    files_removed = {"text": lithar.texts["update_bak_remd_file"]}
-    dir_added = [lithar.texts["update_bak_added_dir"]]
-    dir_removed = [lithar.texts["update_bak_remd_dir"]]
-    for active_dir, subfolders, filenames in os.walk(source):
-        # mirror_dir mirrors the walking in the source tree into the dest tree
-        mirror_dir = os.path.join(dest,
-                                  "" if active_dir == source
-                                  else os.path.relpath(active_dir, source))
-        # print("active:", active_dir) # for debug
-        # print("mirror:", mirror_dir) # for debug
-        mirror_filenames = [mf for mf in os.listdir(mirror_dir)
-                            if os.path.isfile(os.path.join(mirror_dir, mf))]
-        mirror_subfolders = [msf for msf in os.listdir(mirror_dir)
-                             if os.path.isdir(os.path.join(mirror_dir, msf))]
+        files_added = {"text": lithar.texts["update_bak_added_file"]}
+        files_updated = {"text": lithar.texts["update_bak_updated_file"]}
+        files_removed = {"text": lithar.texts["update_bak_remd_file"]}
+        dir_added = [lithar.texts["update_bak_added_dir"]]
+        dir_removed = [lithar.texts["update_bak_remd_dir"]]
+        for active_dir, subfolders, filenames in os.walk(source):
+            # mirror_dir mirrors the walking in the source tree into the dest tree
+            mirror_dir = os.path.join(dest,
+                                      "" if active_dir == source
+                                      else os.path.relpath(active_dir, source))
+            # print("active:", active_dir) # for debug
+            # print("mirror:", mirror_dir) # for debug
+            mirror_filenames = [mf for mf in os.listdir(mirror_dir)
+                                if os.path.isfile(os.path.join(mirror_dir, mf))]
+            mirror_subfolders = [msf for msf in os.listdir(mirror_dir)
+                                 if os.path.isdir(os.path.join(mirror_dir, msf))]
 
-        # Detects new stuff
-        new_files = set(filenames) - set(mirror_filenames)
-        new_subfolders = set(subfolders) - set(mirror_subfolders)
-        # Detects files that are already in the backup
-        previous_files = set(filenames) & set(mirror_filenames)
-        # Detects obsolete stuff (the ones that have to be removed)
-        obsolete_files = set(mirror_filenames) - set(filenames)
-        obsolete_subfolders = set(mirror_subfolders) - set(subfolders)
+            # Detects new stuff
+            new_files = set(filenames) - set(mirror_filenames)
+            new_subfolders = set(subfolders) - set(mirror_subfolders)
+            # Detects files that are already in the backup
+            previous_files = set(filenames) & set(mirror_filenames)
+            # Detects obsolete stuff (the ones that have to be removed)
+            obsolete_files = set(mirror_filenames) - set(filenames)
+            obsolete_subfolders = set(mirror_subfolders) - set(subfolders)
 
-        # Adds new subfolders
-        for new_sub_folder in new_subfolders:
-            add_folder(new_sub_folder)
-        # Adds new files
-        local_new_files = []
-        for file in new_files:
-            add_file(file)
-        # Updates outdated files
-        local_updated_files = []
-        for file in previous_files:
-            if isOutdated(file):
-                update_file(file)
-        # Removes obsolete folders
-        for obs_folder in obsolete_subfolders:
-            rem_folder(obs_folder)
-        # Removes obsolete files
-        local_removed_files = []
-        for obs_file in obsolete_files:
-            rem_file(obs_file)
-
-    # Reports changes
-    list_of_changes = [dir_added, files_added, files_updated,
-                       dir_removed, files_removed]
-    report = False
-    for item in list_of_changes:
-        if len(item) > 1:
-            report = True
-            report_changes(item)
-    if not report:
-        print(lithar.texts["update_bak_no_update"])
+            # Adds new subfolders
+            for new_sub_folder in new_subfolders:
+                add_folder(new_sub_folder)
+            # Adds new files
+            local_new_files = []
+            for file in new_files:
+                add_file(file)
+            # Updates outdated files
+            local_updated_files = []
+            for file in previous_files:
+                if isOutdated(file):
+                    update_file(file)
+            # Removes obsolete folders
+            for obs_folder in obsolete_subfolders:
+                rem_folder(obs_folder)
+            # Removes obsolete files
+            local_removed_files = []
+            for obs_file in obsolete_files:
+                rem_file(obs_file)
+        # Reports changes
+        list_of_changes = [dir_added, files_added, files_updated,
+                           dir_removed, files_removed]
+        report = False
+        for item in list_of_changes:
+            if len(item) > 1:
+                report = True
+                report_changes(item)
+        if not report:
+            print(lithar.texts["update_bak_no_update"])
+    else:
+        if not os.path.exists(bak.source):
+            print(lithar.texts["err_source_path_changed"])
+        if not os.path.exists(bak.dest):
+            print(lithar.texts["err_dest_path_changed"])
+        print(lithar.texts["err_path_changed"])
 
 
 if __name__ == "__main__":
