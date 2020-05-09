@@ -7,6 +7,7 @@ Keep in mind the following status for Lithar II:
 to pass an argument when using the opt_list[choice]["action"]() """
 #! python3
 
+import datetime
 import time
 import sys
 import os
@@ -230,7 +231,12 @@ class Lithar:
             self.settings.space_note) + f'{self.target.source}')
 
     def update_bak(self):
+        """Calls the update_bak function from the update_bak_func module.
+        Updates the date of LAST update."""
         update_module.update_bak(self, self.target)
+        # updates the date
+        self.target.mod_date = datetime.datetime.now()
+        self.save_bak_list()
 
     def del_bak(self):
         """ Removes a bak from the bak_list and hence from the savefile.
@@ -249,7 +255,7 @@ class Lithar:
             print(self.texts["noidea"])
 
     def save_bak_list(self):
-        """ creates or upaates a json file containing the bak_list."""
+        """ creates or updates a shelve file containing the bak_list."""
         with shelve.open(self.settings.savefile) as savefile:
             savefile["bak_list"] = self.bak_list
 

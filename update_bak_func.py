@@ -1,6 +1,7 @@
 import shutil
 import os
 import send2trash
+import datetime
 
 
 def update_bak(lithar, bak):
@@ -11,6 +12,7 @@ def update_bak(lithar, bak):
     3 - reports the changes
     for each phase it handles in this order: adds new items, updates old items,
     removes obsolete items."""
+
 
     def add_folder(new_folder):
         """Adds a new folder in the backup."""
@@ -54,6 +56,7 @@ def update_bak(lithar, bak):
         send2trash.send2trash(to_the_bin)
         local_removed_files.append(obsolete_file)
         files_removed.update({mirror_dir: local_removed_files})
+
 
     def report_changes(changes):
         """ Prints out the changes, using a different style if the changes are
